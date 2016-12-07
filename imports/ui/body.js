@@ -1,8 +1,9 @@
+
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
  
-...some lines skipped...
+
     Tasks.insert({
       text,
       createdAt: new Date(), // current time
@@ -10,12 +11,15 @@ import { ReactiveDict } from 'meteor/reactive-dict';
       username: Meteor.user().username,
     });
  
+    const text = target.text.value;
+ 
+    // Insert a task into the collection
+    Meteor.call('tasks.insert', text);
+ 
     // Clear form
+    target.text.value = '';
  
-import { Tasks } from '../api/tasks.js';
- 
-import './task.js';
-import './body.html';
+
  
 Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
